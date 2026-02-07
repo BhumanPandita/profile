@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-sans: var(--font-space-grotesk);
 
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius: 0.5rem;
+
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Light Mode - Clean Tech / Neo-Futurism */
+  --background: #f8fafc;
+  /* Slate 50 */
+  --foreground: #0f172a;
+  /* Slate 900 */
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  --primary: #7c3aed;
+  /* Violet 600 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #06b6d4;
+  /* Cyan 500 */
+  --secondary-foreground: #ffffff;
+
+  --muted: #f1f5f9;
+  /* Slate 100 */
+  --muted-foreground: #64748b;
+  /* Slate 500 */
+
+  --accent: #f1f5f9;
+  /* Slate 100 */
+  --accent-foreground: #0f172a;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e2e8f0;
+  /* Slate 200 */
+  --input: #e2e8f0;
+  --ring: #7c3aed;
+}
+
+.dark {
+  /* Dark Mode - Deep Space / Cyberpunk */
+  --background: #030014;
+  --foreground: #ffffff;
+
+  --card: #0f172a;
+  /* Slate 900 base for cards */
+  --card-foreground: #ffffff;
+
+  --popover: #030014;
+  --popover-foreground: #ffffff;
+
+  --primary: #a855f7;
+  /* Purple 500 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #06b6d4;
+  /* Cyan 500 */
+  --secondary-foreground: #ffffff;
+
+  --muted: #1e293b;
+  /* Slate 800 */
+  --muted-foreground: #94a3b8;
+  /* Slate 400 */
+
+  --accent: #1e293b;
+  --accent-foreground: #ffffff;
+
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #a855f7;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-lg border border-border shadow-lg;
+  }
 }
