@@ -59,11 +59,22 @@ export function Hero() {
                     className="flex flex-col md:flex-row gap-4 justify-center pt-8"
                 >
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <Link href="#contact">
-                            <Button variant="primary" className="min-w-[160px] h-12 text-lg">
-                                Contact Me
-                            </Button>
-                        </Link>
+                        <Button
+                            variant="primary"
+                            className="min-w-[160px] h-12 text-lg"
+                            onClick={() => {
+                                console.log("Contact Me button clicked");
+                                const contactSection = document.getElementById('contact');
+                                console.log("Contact section found:", contactSection);
+                                if (contactSection) {
+                                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                                } else {
+                                    console.error("Could not find element with id 'contact'");
+                                }
+                            }}
+                        >
+                            Contact Me
+                        </Button>
                         <a href="/resume.pdf" download="Bhuman_Pandita_Resume.pdf">
                             <Button variant="outline" className="min-w-[160px] h-12 text-lg border-primary/50 hover:bg-primary/10">
                                 <Download className="mr-2" size={20} />
