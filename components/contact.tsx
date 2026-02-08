@@ -43,7 +43,7 @@ export function Contact() {
 
         try {
             // Using FormSubmit.co for serverless email handling
-            const response = await fetch("https://formsubmit.co/ajax/bhumanpandita3@gmail.com", {
+            const response = await fetch("https://formsubmit.co/ajax/cd657c81ae4102b5777136131f31548f", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
