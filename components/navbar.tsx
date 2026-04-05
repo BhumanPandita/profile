@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { resumeData } from "@/data/resume";
+import Image from "next/image";
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -42,8 +44,18 @@ export function Navbar() {
             >
                 {/* Logo */}
                 <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-lg text-primary-foreground shadow-lg shadow-primary/20">
-                        B
+                    <div className="w-10 h-10 rounded-full border border-primary/30 relative overflow-hidden flex items-center justify-center shadow-lg shadow-primary/20 bg-gradient-to-br from-primary to-secondary">
+                        {resumeData.personalInfo.avatar ? (
+                            <Image 
+                                src={resumeData.personalInfo.avatar}
+                                alt="Avatar"
+                                fill
+                                className="object-cover"
+                                unoptimized
+                            />
+                        ) : (
+                            <span className="font-bold text-lg text-primary-foreground">{resumeData.personalInfo.name.charAt(0)}</span>
+                        )}
                     </div>
                     <span className="font-bold text-lg hidden sm:block tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                         Bhuman Pandita

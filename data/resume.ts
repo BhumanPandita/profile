@@ -9,7 +9,7 @@ export const resumeData = {
     linkedin: "https://www.linkedin.com/in/bhumanpandita",
     github: "https://github.com/BhumanPandita",
     bio: "I'm a Data Scientist at IndiGo's R&D lab (Lab37), building technology for the future of aviation. I specialize in Agentic AI, Deep Learning, and solving complex operational challenges. Published author and winner of multiple tech competitions.",
-    avatar: "/placeholder-avatar.jpg", // TODO: replace with a real photo in /public
+    avatar: "https://github.com/BhumanPandita.png",
   },
   education: [
     {
