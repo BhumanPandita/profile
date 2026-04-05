@@ -21,7 +21,7 @@ export function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: "About", href: "#" }, // Hero
+        { name: "About", href: "/" }, // Hero / top of page
         { name: "Experience", href: "#experience" },
         { name: "Skills", href: "#skills" },
         { name: "Projects", href: "#projects" },

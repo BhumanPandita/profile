@@ -1,4 +1,4 @@
-import { Book, Briefcase, Code, GraduationCap, Trophy, User } from "lucide-react";
+// Resume data — single source of truth for all portfolio content
 
 export const resumeData = {
   personalInfo: {
@@ -9,7 +9,7 @@ export const resumeData = {
     linkedin: "https://www.linkedin.com/in/bhumanpandita",
     github: "https://github.com/BhumanPandita",
     bio: "I'm a Data Scientist at IndiGo's R&D lab (Lab37), building technology for the future of aviation. I specialize in Agentic AI, Deep Learning, and solving complex operational challenges. Published author and winner of multiple tech competitions.",
-    avatar: "/placeholder-avatar.jpg",
+    avatar: "/placeholder-avatar.jpg", // TODO: replace with a real photo in /public
   },
   education: [
     {
@@ -146,7 +146,7 @@ export const resumeData = {
       title: "Integrating deep learning for visual question answering in Agricultural Disease Diagnostics",
       journal: "Scientific Reports",
       year: "2024",
-      link: "#"
+      link: "https://www.nature.com/articles/s41598-024-74529-z"
     },
     {
       title: "Efficacy of biochar as a catalyst for a Fenton-like reaction",

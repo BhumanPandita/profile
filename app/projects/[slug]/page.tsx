@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Github, Calendar, Code } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 
 interface ProjectPageProps {
@@ -27,7 +28,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     }
 
     return (
-        <main className="min-h-screen bg-[#030014] overflow-x-hidden text-white">
+        <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
             <Navbar />
 
             <div className="relative pt-32 pb-20 px-4 max-w-4xl mx-auto">
@@ -40,13 +41,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                 {/* Header */}
                 <div className="mb-12">
-                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400 mb-6">
+                    {/* Project Image */}
+                    {project.image && (
+                        <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-8 border border-primary/20 relative">
+                            <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                    )}
+                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-6">
                         {project.title}
                     </h1>
                     <div className="flex flex-wrap gap-6 text-gray-400">
                         <div className="flex items-center gap-2">
-                            <Calendar size={18} className="text-purple-500" />
-                            <span>{project.period}</span>
+                            <Calendar size={18} className="text-primary" />
+                            <span className="text-muted-foreground">{project.period}</span>
                         </div>
                         {project.github && (
                             <Link href={project.github} target="_blank" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
@@ -60,22 +72,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {/* Content */}
                 <div className="grid md:grid-cols-[2fr_1fr] gap-12">
                     <div className="space-y-8">
-                        <Card className="bg-black/40 border-purple-500/30">
-                            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                                <Code className="text-cyan-400" /> Project Overview
+                        <Card className="bg-card/40 border-primary/30">
+                            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                                <Code className="text-secondary" /> Project Overview
                             </h2>
-                            <p className="text-gray-300 leading-relaxed text-lg">
+                            <p className="text-muted-foreground leading-relaxed text-lg">
                                 {project.fullDescription || project.description}
                             </p>
                         </Card>
                     </div>
 
                     <div className="space-y-6">
-                        <Card className="bg-black/40 border-purple-500/30">
-                            <h3 className="text-xl font-bold mb-4 text-purple-200">Technologies</h3>
+                        <Card className="bg-card/40 border-primary/30">
+                            <h3 className="text-xl font-bold mb-4 text-foreground">Technologies</h3>
                             <div className="flex flex-wrap gap-2">
                                 {project.technologies.map((tech) => (
-                                    <span key={tech} className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">
+                                    <span key={tech} className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm">
                                         {tech}
                                     </span>
                                 ))}
