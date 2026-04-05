@@ -11,8 +11,9 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "rounded-xl bg-[#111] border border-[#2A0E61] bg-opacity-30 backdrop-blur-sm p-6 text-card-foreground shadow-sm transition-all duration-300",
-                    hoverEffect && "hover:shadow-lg hover:shadow-[#2A0E61]/40 hover:-translate-y-1 hover:border-[#7042f88b]",
+                    // Use theme tokens instead of hard-coded hex values so light/dark mode both work
+                    "rounded-xl bg-card/30 border border-border backdrop-blur-sm p-6 text-card-foreground shadow-sm transition-all duration-300",
+                    hoverEffect && "hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 hover:border-primary/50",
                     className
                 )}
                 {...props}

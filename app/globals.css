@@ -32,8 +32,6 @@
   --color-ring: var(--ring);
 
   --radius: 0.5rem;
-
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 :root {
@@ -126,4 +124,18 @@ html {
   .glass-card {
     @apply bg-card/50 backdrop-blur-lg border border-border shadow-lg;
   }
+}
+
+/* Carousel infinite scroll animation */
+@keyframes carousel-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.33%); }
+}
+
+.carousel-track {
+  animation: carousel-scroll 40s linear infinite;
+}
+
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
 }

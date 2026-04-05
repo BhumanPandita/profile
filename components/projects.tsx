@@ -5,9 +5,10 @@ import { resumeData } from "@/data/resume";
 import { Card } from "@/components/ui/card";
 import { Code, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Projects() {
-    // Duplicate projects to create seamless loop - need enough copies to fill screen + buffer
+    // Triplicate to create seamless loop — CSS animation handles the scroll & pause-on-hover
     const duplicatedProjects = [...resumeData.projects, ...resumeData.projects, ...resumeData.projects];
 
     return (
@@ -24,33 +25,27 @@ export function Projects() {
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
             </motion.div>
 
-            <div className="relative w-full overflow-hidden">
+            {/* carousel-container triggers pause-on-hover via CSS in globals.css */}
+            <div className="relative w-full overflow-hidden carousel-container">
                 <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-background/80 to-transparent pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-background/80 to-transparent pointer-events-none" />
 
                 <div className="flex w-max py-12">
-                    <motion.div
-                        className="flex gap-8 px-4 will-change-transform"
-                        animate={{ x: "-33.33%" }}
-                        initial={{ x: "0%" }}
-                        transition={{
-                            repeat: Infinity,
-                            ease: "linear",
-                            duration: 40, // Slower for smoothness
-                        }}
-                    >
+                    {/* carousel-track uses the CSS @keyframes carousel-scroll animation */}
+                    <div className="flex gap-8 px-4 will-change-transform carousel-track">
                         {duplicatedProjects.map((project, index) => (
-                            <Link href={`/projects/${project.slug || '#'}`} key={index} className="block w-[350px] md:w-[450px] shrink-0">
+                            <Link href={`/projects/${project.slug}`} key={index} className="block w-[350px] md:w-[450px] shrink-0">
                                 <div className="h-full transform transition-transform hover:scale-105 duration-300">
                                     <Card hoverEffect className="h-full flex flex-col justify-between group border-primary/20 bg-card/30 backdrop-blur-sm overflow-hidden">
 
                                         {/* Project Image */}
                                         <div className="h-48 w-full bg-muted relative overflow-hidden group-hover:opacity-100 transition-opacity">
                                             {project.image ? (
-                                                <img
+                                                <Image
                                                     src={project.image}
                                                     alt={project.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                    fill
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
@@ -88,7 +83,7 @@ export function Projects() {
                                 </div>
                             </Link>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

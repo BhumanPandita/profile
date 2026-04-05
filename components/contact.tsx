@@ -92,7 +92,7 @@ export function Contact() {
                             </div>
                             <div>
                                 <div className="text-sm text-muted-foreground">Email</div>
-                                <div className="text-foreground font-medium">bhumanpandita3@gmail.com</div>
+                                <div className="text-foreground font-medium">bhumanpandita4@gmail.com</div>
                             </div>
                         </Card>
 
@@ -147,6 +147,12 @@ export function Contact() {
                             </motion.div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-4">
+                                {status === "error" && (
+                                    <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                                        <span className="shrink-0">⚠️</span>
+                                        <span>Something went wrong. Please try again or email me directly.</span>
+                                    </div>
+                                )}
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-muted-foreground">Name</label>
