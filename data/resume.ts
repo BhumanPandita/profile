@@ -15,7 +15,7 @@ export const resumeData = {
     {
       school: "Birla Institute of Technology and Science Pilani (BITS Pilani)",
       degree: "Bachelor of Engineering in Civil (Hons.) + Minor in Data Science",
-      year: "2021 - 2025",
+      year: "2021 - 2025 (Graduated)",
       grade: "CGPA 7.8/10",
       description: "Focus on Data Science, Machine Learning, and Engineering fundamentals."
     },
