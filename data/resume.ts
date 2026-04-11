@@ -146,19 +146,19 @@ export const resumeData = {
       title: "Integrating deep learning for visual question answering in Agricultural Disease Diagnostics",
       journal: "Scientific Reports",
       year: "2024",
-      link: "https://www.nature.com/articles/s41598-024-74529-z"
+      link: "https://doi.org/10.1038/s41598-024-79793-2"
     },
     {
       title: "Efficacy of biochar as a catalyst for a Fenton-like reaction",
       journal: "Journal of Water Process Engineering",
       year: "2025",
-      link: "#"
+      link: "https://doi.org/10.1016/j.jwpe.2025.107014"
     },
     {
       title: "Optimizing the upcycling of microplastics to a carbon-based adsorbent",
       journal: "Chemical Engineering Science",
       year: "2026",
-      link: "#"
+      link: "https://doi.org/10.1016/j.ces.2026.123409"
     }
   ],
   awards: [
