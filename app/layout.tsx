@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Chatbot } from "@/components/chatbot";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -65,6 +66,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Chatbot />
         </ThemeProvider>
       </body>
     </html>
