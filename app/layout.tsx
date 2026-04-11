@@ -58,7 +58,9 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} antialiased`}
       >
-        <GoogleAnalytics gaId="G-TKTYNR1BDX" />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
