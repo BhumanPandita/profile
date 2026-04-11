@@ -152,7 +152,7 @@ export function Chatbot() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        className="absolute bottom-20 right-0 w-[350px] sm:w-[400px] h-[550px] max-h-[75vh] bg-white/95 dark:bg-[#050505]/95 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                        className="absolute bottom-[84px] right-0 w-[calc(100vw-48px)] sm:w-[400px] h-[calc(100dvh-130px)] sm:h-[550px] max-h-[800px] bg-white/95 dark:bg-[#050505]/95 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
                     >
                         {/* Premium Header */}
                         <div className="flex items-center justify-between px-5 py-4 border-b border-black/5 dark:border-white/10 bg-gradient-to-r from-zinc-100/80 dark:from-black/60 to-primary/5">
