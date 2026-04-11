@@ -9,6 +9,12 @@ type Message = { role: "user" | "model"; text: string };
 const STORAGE_KEY = "bhuman_chat_history_v1";
 const INITIAL_MSG: Message = { role: "model", text: "Hi! I'm Bhuman's AI Agent. I can answer any questions about his agentic AI systems, data pipelines, and experience." };
 
+const SUGGESTIONS = [
+    "Tell me about your AI work at IndiGo.",
+    "What are your core technical skills?",
+    "Where did you study?"
+];
+
 export function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([INITIAL_MSG]);
@@ -69,16 +75,15 @@ export function Chatbot() {
         setIsLoading(true);
 
         try {
-            // Send entire history payload to secure Next.js Backend 
-            const response = await fetch("/api/chat", {
+            const result = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ messages: updatedMessages })
             });
 
-            const data = await response.json();
+            const data = await result.json();
 
-            if (!response.ok) {
+            if (!result.ok) {
                 throw new Error(data.error || "Failed to fetch AI network");
             }
 
@@ -89,6 +94,32 @@ export function Chatbot() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleSuggestionClick = (suggestion: string) => {
+        if (isLoading) return;
+        
+        // Optimistically update UI
+        const updatedMessages: Message[] = [...messages, { role: "user", text: suggestion }];
+        setMessages(updatedMessages);
+        setIsLoading(true);
+
+        // Directly call fetch instead of setting state to avoid closure issues with 'input'
+        fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: updatedMessages })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+            setMessages(prev => [...prev, { role: "model", text: data.response }]);
+        })
+        .catch(err => {
+            console.error(err);
+            setMessages(prev => [...prev, { role: "model", text: "I ran into a connection error. Please try again!" }]);
+        })
+        .finally(() => setIsLoading(false));
     };
 
     return (
@@ -181,6 +212,24 @@ export function Chatbot() {
                                         <div className="w-1.5 h-1.5 bg-primary/50 rounded-full animate-bounce" />
                                         <div className="w-1.5 h-1.5 bg-primary/80 rounded-full animate-bounce [animation-delay:-.15s]" />
                                         <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-.3s]" />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Suggestion Chips */}
+                            {messages.length === 1 && !isLoading && (
+                                <div className="flex flex-col gap-2 pt-2 ml-10">
+                                    <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-semibold px-2">Suggestions</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {SUGGESTIONS.map((s, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => handleSuggestionClick(s)}
+                                                className="px-3 py-1.5 rounded-full bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs text-zinc-600 dark:text-zinc-300 hover:border-primary/50 hover:text-primary transition-all text-left"
+                                            >
+                                                {s}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
                             )}
