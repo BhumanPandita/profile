@@ -40,6 +40,7 @@ export function Chatbot() {
     const [messages, setMessages] = useState<Message[]>([INITIAL_MSG]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false);
     
     const chatSessionRef = useRef<any>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -84,7 +85,7 @@ export function Chatbot() {
         }
     }, []);
 
-    // 2. Persist History continuously
+    // 2. Persist History continuously & Tooltip trigger
     useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -94,6 +95,13 @@ export function Chatbot() {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages, isOpen]);
+
+    // Tooltip delayed trigger Every Time
+    useEffect(() => {
+        const showTimer = setTimeout(() => setShowTooltip(true), 2500);
+        const hideTimer = setTimeout(() => setShowTooltip(false), 8500);
+        return () => { clearTimeout(showTimer); clearTimeout(hideTimer); };
+    }, []);
 
     const handleClearChat = () => {
         setMessages([INITIAL_MSG]);
@@ -258,13 +266,32 @@ export function Chatbot() {
                 )}
             </AnimatePresence>
 
+            {/* Timed Welcome Tooltip */}
+            <AnimatePresence>
+                {showTooltip && !isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8, filter: "blur(5px)" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="absolute right-[80px] bottom-3 bg-white dark:bg-[#1a1a1a] text-black dark:text-white px-4 py-3 rounded-2xl rounded-br-sm shadow-xl border border-black/10 dark:border-white/10 flex items-center gap-2 pointer-events-none"
+                    >
+                        <Sparkles size={16} className="text-primary animate-pulse" />
+                        <span className="text-sm font-medium tracking-tight whitespace-nowrap">Ask my Agent anything!</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Ultra-Premium Animated Floating Action Button */}
             <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => { 
+                    setIsOpen(!isOpen); 
+                    setShowTooltip(false); 
+                }}
                 className="group relative h-16 w-16 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center justify-center border border-black/10 dark:border-white/20 overflow-hidden"
             >
                 {/* Glowing Aura Effect */}
