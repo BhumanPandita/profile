@@ -2,34 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot, User, Sparkles, Trash2 } from "lucide-react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { resumeData } from "@/data/resume";
+import { X, Send, Bot, User, Sparkles, Trash2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-
-const API_KEY = "AIzaSyDx9oQ518udpwaam87xQHduSgZazHozppc";
-const genAI = new GoogleGenerativeAI(API_KEY);
-
-const SYSTEM_INSTRUCTION = `
-You are an expert AI assistant living on Bhuman Pandita's portfolio website. 
-You act as his digital representative, answering questions from recruiters and engineers.
-Keep your answers concise, highly professional, and lean heavily into highlighting his AI, Machine Learning, and Data Science expertise.
-Use markdown for formatting. Bold key terms, use bullet points for lists.
-
-IMPORTANT TIME CONTEXT: 
-Bhuman is an ALUMNI of BITS Pilani (Class of 2025). He has already graduated. He is a full-time professional working in the industry, and is NOT a current student. Be sure to answer as if he has already finished college.
-
-Here is the document context (RAG data) you have access to:
-Name: ${resumeData.personalInfo.name}
-Title: ${resumeData.personalInfo.title}
-Bio: ${resumeData.personalInfo.bio}
-Skills: ${resumeData.skills.join(", ")}
-Experience: ${JSON.stringify(resumeData.experience)}
-Projects: ${JSON.stringify(resumeData.projects)}
-Education: ${JSON.stringify(resumeData.education)}
-
-If the user asks something outside this context, politely let them know you don't have that specific file but they can email Bhuman directly at ${resumeData.personalInfo.email}.
-`;
 
 type Message = { role: "user" | "model"; text: string };
 const STORAGE_KEY = "bhuman_chat_history_v1";
@@ -41,8 +15,7 @@ export function Chatbot() {
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
-    
-    const chatSessionRef = useRef<any>(null);
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // 1. Load History on Mount
@@ -60,37 +33,13 @@ export function Chatbot() {
             console.error("Failed to load chat history:", e);
         }
         setMessages(loadedMessages);
-
-        // Prep history for Gemini connection
-        const geminiHistory = loadedMessages.map(m => ({
-            role: m.role,
-            parts: [{ text: m.text }]
-        }));
-        
-        // Gemini API strictly expects alternating user->model history if it exists. 
-        if (geminiHistory[0]?.role === "model") {
-            geminiHistory.unshift({ role: "user", parts: [{ text: "Hello" }] });
-        }
-
-        try {
-            const model = genAI.getGenerativeModel({
-                model: "gemini-flash-latest",
-                systemInstruction: SYSTEM_INSTRUCTION,
-            });
-            chatSessionRef.current = model.startChat({
-                history: geminiHistory,
-            });
-        } catch (e) {
-            console.error("Failed to initialize Gemini:", e);
-        }
     }, []);
 
-    // 2. Persist History continuously & Tooltip trigger
+    // 2. Auto-save & Auto-Scroll
     useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
         }
-        
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
@@ -106,38 +55,37 @@ export function Chatbot() {
     const handleClearChat = () => {
         setMessages([INITIAL_MSG]);
         localStorage.removeItem(STORAGE_KEY);
-        
-        try {
-            const model = genAI.getGenerativeModel({
-                model: "gemini-flash-latest",
-                systemInstruction: SYSTEM_INSTRUCTION,
-            });
-            chatSessionRef.current = model.startChat({
-                history: [
-                    { role: "user", parts: [{ text: "Hello" }] },
-                    { role: "model", parts: [{ text: INITIAL_MSG.text }] }
-                ],
-            });
-        } catch (e) {
-            console.error(e);
-        }
     };
 
     const handleSend = async () => {
-        if (!input.trim() || !chatSessionRef.current || isLoading) return;
+        if (!input.trim() || isLoading) return;
         
         const userText = input.trim();
         setInput("");
-        setMessages(prev => [...prev, { role: "user", text: userText }]);
+        
+        // Optimistically update UI
+        const updatedMessages: Message[] = [...messages, { role: "user", text: userText }];
+        setMessages(updatedMessages);
         setIsLoading(true);
 
         try {
-            const result = await chatSessionRef.current.sendMessage(userText);
-            const responseText = result.response.text();
-            setMessages(prev => [...prev, { role: "model", text: responseText }]);
+            // Send entire history payload to secure Next.js Backend 
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: updatedMessages })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to fetch AI network");
+            }
+
+            setMessages(prev => [...prev, { role: "model", text: data.response }]);
         } catch (error) {
-            console.error("Chatbot Error:", error);
-            setMessages(prev => [...prev, { role: "model", text: "Sorry, I ran into an error connecting to my neural network. Please try again!" }]);
+            console.error("Backend Error:", error);
+            setMessages(prev => [...prev, { role: "model", text: "Sorry, I ran into an error connecting to my neural network. Please check my server." }]);
         } finally {
             setIsLoading(false);
         }
