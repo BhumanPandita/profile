@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Bot, User, Sparkles, Trash2, Volume2 } from "lucide-react";
+import { X, Send, Bot, User, Sparkles, Trash2, Volume2, VolumeX } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 type Message = { role: "user" | "model"; text: string };
@@ -20,10 +20,12 @@ export function Chatbot() {
     const [messages, setMessages] = useState<Message[]>([INITIAL_MSG]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isSpeaking, setIsSpeaking] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const speechAudioRef = useRef<HTMLAudioElement | null>(null);
+    const speechAudioUrlRef = useRef<string | null>(null);
 
     // 1. Load History on Mount
     useEffect(() => {
@@ -64,8 +66,17 @@ export function Chatbot() {
         localStorage.removeItem(STORAGE_KEY);
     };
 
+    const stopSpeaking = () => {
+        speechAudioRef.current?.pause();
+        speechAudioRef.current = null;
+        if (speechAudioUrlRef.current) URL.revokeObjectURL(speechAudioUrlRef.current);
+        speechAudioUrlRef.current = null;
+        setIsSpeaking(false);
+    };
+
     const speakResponse = async (text: string) => {
         try {
+            stopSpeaking();
             const response = await fetch("/api/speech", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -74,16 +85,20 @@ export function Chatbot() {
             if (!response.ok) throw new Error(`Speech synthesis failed with ${response.status}`);
 
             const audioUrl = URL.createObjectURL(await response.blob());
-            speechAudioRef.current?.pause();
             const audio = new Audio(audioUrl);
             speechAudioRef.current = audio;
+            speechAudioUrlRef.current = audioUrl;
+            setIsSpeaking(true);
             audio.onended = () => {
                 URL.revokeObjectURL(audioUrl);
+                speechAudioUrlRef.current = null;
                 if (speechAudioRef.current === audio) speechAudioRef.current = null;
+                setIsSpeaking(false);
             };
             await audio.play();
         } catch (error) {
             console.error("Speech synthesis error:", error);
+            setIsSpeaking(false);
         }
     };
 
@@ -174,6 +189,15 @@ export function Chatbot() {
                                 </div>
                             </div>
                             <div className="flex gap-1.5">
+                                {isSpeaking && (
+                                    <button
+                                        onClick={stopSpeaking}
+                                        title="Stop speaking"
+                                        className="text-red-500 hover:text-red-400 transition-colors p-1.5 rounded-full hover:bg-red-500/10"
+                                    >
+                                        <VolumeX size={18} />
+                                    </button>
+                                )}
                                 <button 
                                     onClick={handleClearChat}
                                     title="Erase Chat History"
