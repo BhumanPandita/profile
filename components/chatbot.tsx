@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Bot, User, Sparkles, Trash2 } from "lucide-react";
+import { X, Send, Bot, User, Sparkles, Trash2, Mic, Square } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 type Message = { role: "user" | "model"; text: string };
@@ -20,9 +20,14 @@ export function Chatbot() {
     const [messages, setMessages] = useState<Message[]>([INITIAL_MSG]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isRecording, setIsRecording] = useState(false);
+    const [isTranscribing, setIsTranscribing] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const audioChunksRef = useRef<Blob[]>([]);
+    const audioStreamRef = useRef<MediaStream | null>(null);
 
     // 1. Load History on Mount
     useEffect(() => {
@@ -61,6 +66,63 @@ export function Chatbot() {
     const handleClearChat = () => {
         setMessages([INITIAL_MSG]);
         localStorage.removeItem(STORAGE_KEY);
+    };
+
+    const handleStartRecording = async () => {
+        if (isLoading || isTranscribing || isRecording) return;
+
+        if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+            setMessages(prev => [...prev, { role: "model", text: "Voice input is not supported in this browser. Please type your question instead." }]);
+            return;
+        }
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"]
+                .find(type => MediaRecorder.isTypeSupported(type));
+            const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+
+            audioChunksRef.current = [];
+            audioStreamRef.current = stream;
+            mediaRecorderRef.current = recorder;
+            recorder.ondataavailable = event => {
+                if (event.data.size > 0) audioChunksRef.current.push(event.data);
+            };
+            recorder.onstop = async () => {
+                setIsRecording(false);
+                setIsTranscribing(true);
+                audioStreamRef.current?.getTracks().forEach(track => track.stop());
+
+                try {
+                    const audioBlob = new Blob(audioChunksRef.current, { type: recorder.mimeType || "audio/webm" });
+                    const formData = new FormData();
+                    formData.append("audio", audioBlob, "chat-recording.webm");
+                    const response = await fetch("/api/transcribe", { method: "POST", body: formData });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Transcription failed");
+                    if (data.text?.trim()) {
+                        setInput(prev => prev.trim() ? `${prev.trim()} ${data.text.trim()}` : data.text.trim());
+                    }
+                } catch (error) {
+                    console.error("Transcription error:", error);
+                    setMessages(prev => [...prev, { role: "model", text: "I couldn't transcribe that recording. Please try again or type your question." }]);
+                } finally {
+                    setIsTranscribing(false);
+                    mediaRecorderRef.current = null;
+                    audioStreamRef.current = null;
+                }
+            };
+
+            recorder.start();
+            setIsRecording(true);
+        } catch (error) {
+            console.error("Microphone permission error:", error);
+            setMessages(prev => [...prev, { role: "model", text: "Microphone access was unavailable. Please allow microphone permission or type your question." }]);
+        }
+    };
+
+    const handleStopRecording = () => {
+        if (mediaRecorderRef.current?.state === "recording") mediaRecorderRef.current.stop();
     };
 
     const handleSend = async () => {
@@ -244,11 +306,20 @@ export function Chatbot() {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                    placeholder="Message AI Agent..."
+                                    placeholder={isTranscribing ? "Transcribing..." : isRecording ? "Listening..." : "Message AI Agent..."}
                                     className="flex-1 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-black dark:text-white rounded-full pl-5 pr-12 py-3 text-sm focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-white/10 transition-all placeholder:text-zinc-500 shadow-inner"
-                                    disabled={isLoading}
+                                    disabled={isLoading || isTranscribing}
                                     autoFocus
                                 />
+                                <button
+                                    onClick={isRecording ? handleStopRecording : handleStartRecording}
+                                    disabled={isLoading || isTranscribing}
+                                    title={isRecording ? "Stop recording" : "Speak a question"}
+                                    className={"absolute right-11 top-1.5 bottom-1.5 rounded-full w-9 flex items-center justify-center transition-all " +
+                                        (isRecording ? "bg-red-500 text-white animate-pulse" : "text-zinc-500 hover:text-primary hover:bg-primary/10")}
+                                >
+                                    {isRecording ? <Square size={13} /> : <Mic size={16} />}
+                                </button>
                                 <button 
                                     onClick={handleSend}
                                     disabled={!input.trim() || isLoading}
