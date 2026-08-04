@@ -12,12 +12,13 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bhumanpandita.github.io"),
-  title: "Bhuman Pandita | Portfolio",
-  description: "Data Scientist & AI Engineer Portfolio",
+  title: "Bhuman Pandita | AI Engineer & Data Scientist",
+  description: "Bhuman Pandita is an AI Engineer and Data Scientist building multi-agent LLM systems, RAG pipelines, and production agentic AI workflows.",
   keywords: [
     "Bhuman Pandita",
-    "Data Scientist",
     "AI Engineer",
+    "Data Scientist",
+    "Applied AI",
     "Machine Learning",
     "Agentic AI",
     "Lab37",
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Bhuman Pandita", url: "https://bhumanpandita.github.io" }],
   openGraph: {
-    title: "Bhuman Pandita | Portfolio",
-    description: "Data Scientist & AI Engineer Portfolio",
+    title: "Bhuman Pandita | AI Engineer & Data Scientist",
+    description: "AI Engineer and Data Scientist building multi-agent LLM systems, RAG pipelines, and production agentic AI workflows.",
     url: "https://bhumanpandita.github.io",
     siteName: "Bhuman Pandita",
     locale: "en_US",
@@ -42,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bhuman Pandita | Portfolio",
-    description: "Data Scientist & AI Engineer Portfolio",
+    title: "Bhuman Pandita | AI Engineer & Data Scientist",
+    description: "AI Engineer and Data Scientist building multi-agent LLM systems, RAG pipelines, and production agentic AI workflows.",
     images: ["/swot_analysis_real_1770478345192.png"],
   },
 };

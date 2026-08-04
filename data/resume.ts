@@ -3,183 +3,207 @@
 export const resumeData = {
   personalInfo: {
     name: "Bhuman Pandita",
-    title: "Data Scientist | Agentic AI & Deep Learning Enthusiast",
-    email: "bhumanpandita4@gmail.com",
+    title: "AI Engineer | Data Scientist | Applied AI | Agentic Systems | GenAI",
+    email: "bhumanpandita3@gmail.com",
     location: "Bengaluru, Karnataka, India",
     linkedin: "https://www.linkedin.com/in/bhumanpandita",
     github: "https://github.com/BhumanPandita",
-    bio: "I'm a Data Scientist at IndiGo's R&D lab (Lab37), building technology for the future of aviation. I specialize in Agentic AI, Deep Learning, and solving complex operational challenges. Published author and winner of multiple tech competitions.",
+    bio: "AI Engineer building and deploying multi-agent LLM systems, RAG pipelines, and agentic AI workflows at scale. Published researcher and ASCE award recipient with hands-on experience across Azure OpenAI, Semantic Kernel, MCP servers, LangChain/LangGraph, FastAPI, and async Python systems.",
     avatar: "https://github.com/BhumanPandita.png",
   },
   education: [
     {
-      school: "Birla Institute of Technology and Science Pilani (BITS Pilani)",
-      degree: "Bachelor of Engineering in Civil (Hons.) + Minor in Data Science",
-      year: "2021 - 2025 (Graduated)",
+      school: "Birla Institute of Technology and Science, Pilani",
+      degree: "B.E. Civil (Hons.) with Minor in Data Science",
+      year: "Aug 2021 - May 2025",
       grade: "CGPA 7.8/10",
-      description: "Focus on Data Science, Machine Learning, and Engineering fundamentals."
+      description: "Relevant coursework: Generative AI, Deep Learning, Machine Learning, Foundations of Data Science, and Applied Statistical Methods.",
     },
     {
       school: "Narayana Junior College, Nallakunta",
       degree: "Intermediate",
-      year: "2020 - 2021"
+      year: "2020 - 2021",
     },
     {
       school: "Delhi Public School - India",
       degree: "High School",
-      year: "2018 - 2019"
-    }
-
+      year: "2018 - 2019",
+    },
   ],
   experience: [
     {
-      company: "IndiGo (InterGlobe Aviation Ltd)",
-      role: "Data Scientist (IAL)",
-      period: "June 2025 - Present",
-      description: "Working at Lab37 to build futuristic aviation tech.",
+      company: "IndiGo (InterGlobe Aviation)",
+      role: "Machine Learning Engineer (Assistant Manager)",
+      period: "Jul 2026 - Present",
+      description: "Promoted to Machine Learning Engineer (Assistant Manager) in July 2026.",
       highlights: [
-        "Designed and deployed an AI agent-driven MCP server for automating Bluechip profile updates across multiple internal databases, cutting TAT from 12 days to under 1 minute.",
-        "Integrated intelligent workflow orchestration enabling consistent and error-free data synchronization.",
-        "Collaborated with business and IT stakeholders to standardize update logic and ensure compliance."
-      ]
+        "Promoted to Machine Learning Engineer (Assistant Manager) in Jul 2026.",
+      ],
+    },
+    {
+      company: "IndiGo (InterGlobe Aviation)",
+      role: "IAL - Digital & Data Science Program",
+      period: "Jun 2025 - Jul 2026",
+      description: "Built and deployed production AI systems for airline loyalty, fraud detection, edge AI, and MRO automation.",
+      highlights: [
+        "Owned end-to-end design and production deployment of a multi-agent MCP server using Semantic Kernel, Azure OpenAI, FastAPI, and FastMCP to automate BluChip loyalty profile updates across internal databases, reducing TAT from 12 days to under 1 minute with PII compliance and OCR-based government ID verification.",
+        "Integrated intelligent workflow orchestration to enable consistent and error-free data synchronization.",
+        "Collaborated with business and IT stakeholders to standardize update logic and ensure compliance.",
+        "Architected and delivered a hybrid AI Loyalty Fraud Detection system integrating MS Graph API, Azure Cosmos DB, three Capillary APIs, and Navitaire, with six detection modules including LLM-driven geographic feasibility reasoning and self-connecting flight protection.",
+        "Prototyped an Edge AI IoT asset tracker using a custom CNN vision model on Raspberry Pi with Go and Python backends, presented to senior engineering leadership.",
+        "Developing an NLP/LLM invoice categorization pipeline using embedding retrieval and LLM classification to auto-tag MRO Non-Routine Card tasks across heterogeneous vendor invoices.",
+      ],
     },
     {
       company: "Swostitech Solutions",
       role: "AI Engineer Intern",
       period: "Dec 2024 - Jan 2025",
-      description: "Focused on RAG and LLM optimization.",
+      description: "Focused on production RAG systems and LLM optimization.",
       highlights: [
-        "Implemented Retrieval-Augmented Generation (RAG) for 1,000+ documents, optimizing retrieval accuracy across OpenAI, LLaMA, and Mistral models.",
-        "Improved retrieval speed by 30% via model fine-tuning and benchmarking."
-      ]
+        "Built and optimized a production RAG pipeline over 1,000+ enterprise documents, benchmarking GPT-4, LLaMA-3, and Mistral-7B across chunking strategies and embedding models.",
+        "Reduced end-to-end RAG inference latency by 30% at p95 through embedding model quantization, flat-to-HNSW vector-store migration, and query-layer caching.",
+      ],
     },
     {
-      company: "Rigi",
+      company: "Rigi, Bangalore",
       role: "Data Analyst Intern",
-      period: "July 2024 - Dec 2024",
-      description: "Data automation and insights.",
+      period: "Jul 2024 - Dec 2024",
+      description: "Automated creator transaction reporting and improved analytics workflows.",
       highlights: [
-        "Automated creation of large Excel reports for 100+ creators, cutting manual effort by 50%.",
-        "Optimized complex SQL queries reducing dashboard query time by 30% and unlocking actionable insights via Metabase."
-      ]
+        "Automated end-to-end transaction reporting for 100+ creators using pandas, openpyxl, and cron, saving approximately 20 finance-team hours per week and surfacing payout discrepancies automatically.",
+        "Optimized PostgreSQL queries using window functions, CTEs, and index tuning, cutting Metabase dashboard load time by 30%.",
+      ],
     },
     {
       company: "Ministry of Education, Government of India",
       role: "Summer Intern",
-      period: "May 2024 - July 2024",
+      period: "May 2024 - Jul 2024",
+      description: "Applied computer vision and remote sensing techniques to high-resolution imagery.",
       highlights: [
-        "Applied state-of-the-art panoptic and semantic segmentation techniques to high-resolution imagery.",
-        "Researched and implemented various methodologies enhancing remote sensing data visualization."
-      ]
+        "Applied panoptic and semantic segmentation techniques to high-resolution imagery.",
+        "Researched and implemented methodologies for enhancing remote sensing data visualization.",
+      ],
     },
     {
       company: "Wadia Institute of Himalayan Geology",
       role: "Summer Intern",
-      period: "May 2023 - July 2023",
+      period: "May 2023 - Jul 2023",
+      description: "Applied machine learning to historical flood data and warning-system development.",
       highlights: [
         "Created a flood warning system using machine learning techniques in R.",
-        "Incorporated variables such as monthly and annual rainfall indexes to analyse historical flood data."
-      ]
-    }
+        "Incorporated monthly and annual rainfall indexes to analyse historical flood data.",
+      ],
+    },
   ],
   projects: [
+    {
+      title: "RAG Red-Teaming Pipeline",
+      slug: "rag-red-teaming-pipeline",
+      technologies: ["Python", "Gemini", "Groq/LLaMA-3.3-70B", "FastAPI", "Next.js"],
+      period: "2025",
+      description: "A four-stage adversarial AI evaluation framework for systematically probing RAG applications across 13 attack categories.",
+      fullDescription: "Designed and built an attacker-to-evaluator pipeline comprising an attacker, executor, target RAG system, and evaluator. The framework probes an HR chatbot for prompt injection, roleplay jailbreaks, encoding obfuscation, RAG context poisoning, and other adversarial behaviors. A hybrid observability score combines an LLM semantic judge with heuristic signals and severity tiers, surfaced through a real-time SSE streaming dashboard in Next.js.",
+      image: "",
+    },
+    {
+      title: "CycleGAN Image Dehazing",
+      slug: "cyclegan-dehazing",
+      technologies: ["PyTorch", "OpenCV", "Deep Learning", "CycleGAN"],
+      period: "Mar - May 2024",
+      description: "A CycleGAN-based image dehazing model trained from scratch on unpaired hazy-to-clear image translation.",
+      fullDescription: "Designed and trained a CycleGAN-based image dehazing model from scratch using cycle consistency loss and adversarial training, achieving a 40% improvement in perceptual clarity across diverse real-world haze conditions.",
+      image: "dehazing_real_1770478400196.png",
+      github: "https://github.com/BhumanPandita/CycleGAN-Dehazing",
+    },
+    {
+      title: "CNN Sound Classification",
+      slug: "sound-classification",
+      technologies: ["PyTorch", "Librosa", "Mel Spectrograms", "CNN"],
+      period: "Jan - Mar 2024",
+      description: "Benchmarked CNN architectures on 6,000+ audio samples across 13 classes, improving accuracy through Mel-spectrogram preprocessing.",
+      fullDescription: "Benchmarked ResNet, DenseNet, MobileNetV2, and a custom six-layer CNN on 6,000+ audio samples across 13 classes. Noise reduction preprocessing on Mel spectrograms improved classification accuracy by 15%.",
+      image: "sound_class_real_v2_1770478989600.png",
+      github: "https://github.com/BhumanPandita/Audio-Classification",
+    },
     {
       title: "SWOT Analysis Generator",
       slug: "swot-analysis-generator",
       technologies: ["LangChain", "Python", "Google Gemini", "Streamlit"],
-      period: "Oct 2024 - Oct 2024",
-      description: "A powerful and user-friendly tool leveraging LangChain and Gemini to facilitate dynamic strategic assessments.",
-      fullDescription: "Empower your decision-making with AI-driven insights for comprehensive analyses. This tool automates the SWOT analysis process, providing strategic recommendations based on user input.",
+      period: "Oct 2024",
+      description: "A Gemini-powered Streamlit tool for dynamic strategic assessments and recommendations.",
+      fullDescription: "A user-friendly tool leveraging LangChain and Google Gemini to automate SWOT analysis and provide strategic recommendations based on user input.",
       image: "swot_analysis_real_1770478345192.png",
-      github: "https://github.com/BhumanPandita"
+      github: "https://github.com/BhumanPandita",
     },
     {
       title: "Wheat Rust Detection using AI",
       slug: "wheat-rust-detection",
       technologies: ["Deep Learning", "PyTorch", "ResNet", "EfficientNet"],
       period: "Dec 2023 - May 2024",
-      description: "Achieved 98.33% validation accuracy in wheat disease classification using extensive data augmentation.",
-      fullDescription: "Conducted a comparative evaluation of advanced deep learning architectures (ResNet, EfficientNet, VGG, Inception, MobileNet, DenseNet). The developed model outperforms existing architectures, demonstrating notable improvements in precision, recall, and F1 scores.",
+      description: "Compared deep learning architectures for wheat disease classification, achieving 98.33% validation accuracy.",
+      fullDescription: "Conducted a comparative evaluation of ResNet, EfficientNet, VGG, Inception, MobileNet, and DenseNet for wheat disease classification, with extensive data augmentation and improvements in precision, recall, and F1 scores.",
       image: "wheat_rust_real_1770478364142.png",
-      github: "https://github.com/BhumanPandita"
-    },
-    {
-      title: "CycleGAN-based Dehazing",
-      slug: "cyclegan-dehazing",
-      technologies: ["Deep Learning", "CycleGAN", "PyTorch"],
-      period: "Mar 2024 - Apr 2024",
-      description: "Developed a CycleGAN model for image dehazing, learning mappings between unpaired image domains.",
-      fullDescription: "Developed a CycleGAN model for image dehazing, leveraging its ability to learn mappings between unpaired image domains while enforcing cycle consistency and adversarial training. Explored the impact of data augmentation techniques on improving image quality and generalization. Implemented the model from scratch without using any pre-trained weights, showcasing a deep understanding of the underlying principles.",
-      image: "dehazing_real_1770478400196.png",
-      github: "https://github.com/BhumanPandita/CycleGAN-Dehazing"
+      github: "https://github.com/BhumanPandita",
     },
     {
       title: "Meeting Summariser App",
       slug: "meeting-summariser",
       technologies: ["OpenAI Whisper", "GPT", "Python", "Streamlit"],
-      period: "Oct 2024 - Nov 2024",
-      description: "Built a Streamlit-based meeting summarizer achieving 95% transcription accuracy and generating concise summaries.",
-      fullDescription: "A powerful tool that leverages OpenAI's Whisper model for high-accuracy speech-to-text transcription and GPT-4 for generating intelligent meeting minutes. The app supports various audio formats and provides real-time summarization with actionable items.",
+      period: "Oct - Nov 2024",
+      description: "A Streamlit meeting summarizer using Whisper transcription and GPT-generated minutes and action items.",
+      fullDescription: "A meeting assistant that uses OpenAI Whisper for speech-to-text transcription and GPT-4 for concise meeting minutes, summaries, and actionable items across common audio formats.",
       image: "meeting_summarizer_real_1770478383269.png",
-      github: "https://github.com/BhumanPandita/MeetingSummariser"
+      github: "https://github.com/BhumanPandita/MeetingSummariser",
     },
-    {
-      title: "CNN-Based Sound Classification",
-      slug: "sound-classification",
-      technologies: ["CNN", "ResNet", "DenseNet", "Librosa"],
-      period: "Jan 2024 - Mar 2024",
-      description: "Designed CNN architectures to classify 13 sound classes with high accuracy. Preprocessed 6000+ audio samples.",
-      fullDescription: "A comprehensive study on audio classification using Deep Learning. Implemented and benchmarked various CNN architectures including ResNet and DenseNet on a large dataset of environmental sounds. Utilized Librosa for extracting Mel-spectrogram features.",
-      image: "sound_class_real_v2_1770478989600.png",
-      github: "https://github.com/BhumanPandita/Audio-Classification"
-    }
   ],
   skills: [
-    "Python", "R", "PostgreSQL",
-    "Semantic-Kernel", "Autogen", "LangChain", "FastAPI", "FastMCP", "PyTorch", "TensorFlow",
-    "MCP Servers", "AI Agents", "Streamlit",
-    "Metabase", "Power BI", "Tableau", "Docker", "Git",
-    "Decision-Making", "Inductive Transfer", "Machine Learning"
+    "Python", "SQL", "PostgreSQL", "R", "Go", "PySpark",
+    "Semantic Kernel", "LangChain", "LangGraph", "AutoGen", "FastMCP", "MCP Servers", "Multi-Agent Orchestration", "RAG", "Prompt Engineering", "Function Calling", "Structured Outputs", "Guardrails", "AI Observability",
+    "Azure OpenAI", "OpenAI", "Google Gemini", "LLaMA-3", "Mistral", "Groq", "Embedding Models",
+    "PyTorch", "TensorFlow", "scikit-learn", "XGBoost", "CNNs", "GANs", "CycleGAN", "Computer Vision", "NLP", "Statistical Modelling",
+    "pandas", "NumPy", "FastAPI", "asyncio", "Pydantic", "Docker", "Git", "Azure Cosmos DB", "MS Graph API", "SQLite", "Streamlit", "Jira",
+    "Tableau", "Power BI", "Metabase", "Postman", "Bruno", "AWS",
+    "Decision-Making", "Inductive Transfer", "Machine Learning",
   ],
   publications: [
     {
-      title: "Integrating deep learning for visual question answering in Agricultural Disease Diagnostics",
+      title: "Integrating deep learning for VQA in Agricultural Disease Diagnostics: Case Study of Wheat Rust",
       journal: "Scientific Reports",
       year: "2024",
-      link: "https://doi.org/10.1038/s41598-024-79793-2"
+      link: "https://doi.org/10.1038/s41598-024-79793-2",
     },
     {
       title: "Efficacy of biochar as a catalyst for a Fenton-like reaction",
       journal: "Journal of Water Process Engineering",
       year: "2025",
-      link: "https://doi.org/10.1016/j.jwpe.2025.107014"
+      link: "https://doi.org/10.1016/j.jwpe.2025.107014",
     },
     {
-      title: "Optimizing the upcycling of microplastics to a carbon-based adsorbent",
+      title: "Optimizing the upcycling of microplastics to a carbon-based adsorbent for water treatment",
       journal: "Chemical Engineering Science",
       year: "2026",
-      link: "https://doi.org/10.1016/j.ces.2026.123409"
-    }
+      link: "https://doi.org/10.1016/j.ces.2026.123409",
+    },
   ],
   awards: [
     {
-      title: "UG Event ASCE International Conference",
-      organization: "ASCE Indian Section",
-      date: "Feb 2025",
-      description: "Received 1st Prize for research on AI-Powered UAV Crop Disease Diagnostics for Smart Cities of Tomorrow."
+      title: "First Prize, ASCE International Conference (CISSC-2025)",
+      organization: "ASCE India Section",
+      date: "2025",
+      description: "Received 1st Prize at the UG Event on Challenges and Innovations for Sustainable Smart Cities for research on AI-powered UAV crop disease diagnostics.",
     },
     {
       title: "Amazon ML Challenge 2024",
       organization: "Amazon",
       date: "2024",
-      description: "Top 166th rank out of 75,000+ registered participants."
-    }
+      description: "Placed 166th among 75,000+ registered participants.",
+    },
   ],
   recommendations: [
     {
       name: "Shubham Bhardwaj",
       role: "Data Science & Analytics @ Postman",
-      content: "Bhuman worked with me @ Rigi as a Data Analyst Intern and showed impressive attention to detail working alongside me on our newly launched Gap Up App. His eagerness to learn and ability to pickup new technical skills would make him a valuable asset to any organisation."
-    }
-  ]
+      content: "Bhuman worked with me @ Rigi as a Data Analyst Intern and showed impressive attention to detail working alongside me on our newly launched Gap Up App. His eagerness to learn and ability to pickup new technical skills would make him a valuable asset to any organisation.",
+    },
+  ],
 };
